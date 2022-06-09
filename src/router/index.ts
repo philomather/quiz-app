@@ -13,8 +13,13 @@ const router = createRouter({
             component: () => import("../views/DashboardView.vue"),
         },
         {
-            path: "/quiz/:quiz_id/question/:question_id",
+            path: "/quiz/:quiz_id",
             name: "quiz",
+            component: () => import("../views/QuizView.vue"),
+        },
+        {
+            path: "/quiz/:quiz_id/question/:question_id",
+            name: "question",
             component: () => import("../views/QuizView.vue"),
         },
     ],

@@ -8,11 +8,11 @@ describe("QuizList", () => {
     it("renders properly", () => {
         const wrapper = mount(QuizList, {
             global: {
-              plugins: [createTestingPinia({
-                createSpy: sinon.spy,
-              })],
+                plugins: [createTestingPinia({
+                    createSpy: sinon.spy,
+                })],
             },
-          });
+        });
         expect(wrapper.text()).toContain("Quizzes");
     });
 });

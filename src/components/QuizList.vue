@@ -8,7 +8,9 @@ const quizzesStore = useQuizzesStore()
 const { quizzes, loading, error } = storeToRefs(quizzesStore);
 
 onMounted(() => {
-    quizzesStore.fetchQuizzes();
+    if (quizzesStore.quizzes.length == 0) {
+        quizzesStore.fetchQuizzes();
+    }
 })
 </script>
 
@@ -26,7 +28,7 @@ onMounted(() => {
         <RouterLink
             v-for="quiz in quizzes"
             class="quiz-list-card"
-            :to="'/quiz/' + quiz.id + '/question/' + quiz.questions[0].id"
+            :to="`/quiz/${quiz.id}`"
         >
             <h3>{{ quiz.name }}</h3>
         </RouterLink>

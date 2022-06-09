@@ -11,9 +11,12 @@ function getAllQuizzes() {
                 id
                 name
                 questions {
-                    id
+                  id
+                  text
+                  options
+                  answer
                 }
-            }
+              }
         }
     `
         })
