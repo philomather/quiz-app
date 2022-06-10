@@ -13,7 +13,7 @@ const answer = ref('')
     <h1 class="question-component-heading">
         {{ quiz.name }} 
     </h1>
-    <p>
+    <p class="question-component-text">
         {{ question.text }}
     </p>
     <div class="question-component-options-container">
