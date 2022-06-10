@@ -2,9 +2,10 @@
 import { useQuizzesStore } from '@/stores/quizzes';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router';
 
 const quizzesStore = useQuizzesStore()
-const { quiz, question } = storeToRefs(quizzesStore);
+const { quiz, question, adjacentQuestions } = storeToRefs(quizzesStore);
 
 const answer = ref('')
 </script>
@@ -35,6 +36,28 @@ const answer = ref('')
                 </div>
             </label>
         </div>
+    </div>
+    <div class="question-component-nav">
+        <RouterLink
+            v-if="adjacentQuestions[0].id != ''"
+            :to="`/quiz/${quiz.id}/question/${adjacentQuestions[0].id}`"
+            @click="quizzesStore.question = adjacentQuestions[0]"
+        >
+            <button>Back</button>
+        </RouterLink>
+        <RouterLink
+            v-if="adjacentQuestions[1].id != ''"
+            :to="`/quiz/${quiz.id}/question/${adjacentQuestions[1].id}`"
+            @click="quizzesStore.question = adjacentQuestions[1]"
+        >
+            <button>Next</button>
+        </RouterLink>
+        <RouterLink
+            v-else
+            :to="`/quiz/${quiz.id}`"
+        >
+            <button>Next</button>
+        </RouterLink>
     </div>
 </template>
 

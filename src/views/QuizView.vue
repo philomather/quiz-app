@@ -2,7 +2,7 @@
 import QuestionComponent from "@/components/QuestionComponent.vue";
 import { useQuizzesStore } from '@/stores/quizzes';
 import { onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter, useRoute, RouterLink } from 'vue-router'
 
 const quizzesStore = useQuizzesStore()
 
@@ -19,13 +19,29 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="quiz-view">
+    <RouterLink
+        class="quiz-view-breadcrumb"
+        to="/dashboard"
+    >
+        {{ '<' }}
+    </RouterLink>
+    <div class="quiz-view-question-container">
         <QuestionComponent />
     </div>
 </template>
 
 <style>
-.quiz-view {
+.quiz-view-breadcrumb {
+    position: absolute;
+    left: 60px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    font-size: large;
+    font-weight: 700;
+}
+.quiz-view-question-container {
   text-align: center;
 }
 </style>

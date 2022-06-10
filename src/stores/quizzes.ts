@@ -41,6 +41,41 @@ export const useQuizzesStore = defineStore({
         loading: false,
         error: null
     }),
+    getters: {
+        adjacentQuestions(state): Question[] {
+            if (!state.quiz || !state.question) {
+                return [emptyQuestion, emptyQuestion]
+            }
+
+            const selectedQuiz = state.quizzes.find((quiz) => quiz.id == state.quiz.id)
+            if (!selectedQuiz) {
+                return [emptyQuestion, emptyQuestion]
+            }
+
+            let previousIndex = null
+            let nextIndex = null
+            selectedQuiz.questions.some((question, index) => {
+                if (question.id == state.question.id) {
+                    previousIndex = index - 1
+                    nextIndex = index + 1
+                    return true
+                }
+
+                return false
+            })
+            
+            let previousQuestion = emptyQuestion
+            let nextQuestion = emptyQuestion
+            if (previousIndex !== null && previousIndex >= 0 && previousIndex < selectedQuiz.questions.length) {
+                previousQuestion = selectedQuiz.questions[previousIndex]
+            }
+            if (nextIndex !== null && nextIndex >= 0 && nextIndex < selectedQuiz.questions.length) {
+                nextQuestion = selectedQuiz.questions[nextIndex]
+            }
+
+            return [previousQuestion, nextQuestion]
+        }
+    },
     actions: {
         async fetchQuizzes() {
             this.loading = true
