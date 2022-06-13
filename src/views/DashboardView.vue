@@ -11,5 +11,6 @@ import QuizList from "@/components/QuizList.vue";
 <style>
 .dashboard {
   text-align: center;
+  top: 50px;
 }
 </style>

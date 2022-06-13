@@ -43,5 +43,6 @@ onMounted(() => {
 }
 .quiz-view-question-container {
   text-align: center;
+  top: 50px;
 }
 </style>

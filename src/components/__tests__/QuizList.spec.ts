@@ -26,8 +26,8 @@ describe("QuizList", () => {
 
         const quizCards = wrapper.findAll('[class="quiz-list-card"]')
         expect(quizCards.length).toBe(3)
-        expect(quizCards[0].text()).toBe("Test Quiz")
-        expect(quizCards[1].text()).toBe("Example Subject")
-        expect(quizCards[2].text()).toBe("Tricky One")
+        expect(quizCards[0].get('h2').text()).toBe("Test Quiz")
+        expect(quizCards[1].get('h2').text()).toBe("Example Subject")
+        expect(quizCards[2].get('h2').text()).toBe("Tricky One")
     });
 });

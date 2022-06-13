@@ -24,11 +24,35 @@ describe("QuestionComponent", () => {
         const heading = wrapper.get('[class="question-component-heading"]')
         expect(heading.text()).toBe("Geography")
 
-        const quizCards = wrapper.findAll('[class="question-component-option-card"]')
-        expect(quizCards.length).toBe(4)
-        expect(quizCards[0].text()).toBe("Istanbul")
-        expect(quizCards[1].text()).toBe("Athens")
-        expect(quizCards[2].text()).toBe("Sarajevo")
-        expect(quizCards[3].text()).toBe("Rome")
+        const quizOptionCards = wrapper.findAll('[class="question-options-option-card"]')
+        expect(quizOptionCards.length).toBe(4)
+        expect(quizOptionCards[0].text()).toBe("Istanbul")
+        expect(quizOptionCards[1].text()).toBe("Athens")
+        expect(quizOptionCards[2].text()).toBe("Sarajevo")
+        expect(quizOptionCards[3].text()).toBe("Rome")
+    });
+
+    it("selecting an option activates the next button", async () => {
+        const wrapper = mount(QuestionComponent, {
+            global: {
+                plugins: [
+                    router,
+                    createTestingPinia({
+                        createSpy: sinon.spy,
+                        stubActions: true,
+                        initialState: {
+                            quizzes: testQuizAndQuestion
+                        },
+                    })],
+            },
+        })
+        let nextButton = wrapper.find('[class="question-component-next-button"]')
+        expect(nextButton.exists()).toBe(false)
+
+        const quizOptionCards = wrapper.findAll('[class="question-options-option-card"]')
+        await quizOptionCards[0].trigger('click')
+
+        nextButton = wrapper.find('[class="question-component-next-button"]')
+        expect(nextButton.exists()).toBe(true)
     });
 });

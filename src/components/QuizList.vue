@@ -20,23 +20,43 @@ onMounted(() => {
     </h1>
     <p
         v-if="loading"
-        class="quiz-list-spinner"
+        class="quiz-list-info"
     >
         Loading quizzes...
     </p>
+    <p
+        v-else-if="error"
+        class="quiz-list-info"
+    >
+        Something went wrong loading the quizzes, please try again later.
+    </p>
     <nav class="quiz-list-container">
-        <RouterLink
+        <div
             v-for="quiz in quizzes"
             class="quiz-list-card"
-            :to="`/quiz/${quiz.id}`"
         >
-            <h3>{{ quiz.name }}</h3>
-        </RouterLink>
+            <h2>{{ quiz.name }}</h2>
+            <div class="quiz-list-card-progress">
+                <h3>
+                    {{ quiz.completed ? `Score: ${quiz.score}/${quiz.total}` : 'Not started' }}
+                </h3>
+                <RouterLink
+                    class="quiz-list-card-link"
+                    :to="`/quiz/${quiz.id}`"
+                    @click="quizzesStore.resetQuiz(quiz)"
+                >
+                    <h3>{{ quiz.completed ? 'Redo' : 'Start' }}</h3>
+                </RouterLink>
+            </div>
+        </div>
     </nav>
 </template>
 
 <style scoped>
-.quiz-list-container{
+.quiz-list-heading {
+  margin-bottom: 20px;
+}
+.quiz-list-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,11 +65,24 @@ onMounted(() => {
 
 .quiz-list-card {
   margin: 30px;
-  height: 60px;
+  height: 100px;
+  width: 300px;
   outline: solid blueviolet;
 }
 
-.quiz-list-spinner {
+.quiz-list-card-progress {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.quiz-list-card-link {
+  height: 30px;
+  width: 80px;
+  outline: solid rgb(38, 211, 130);
+}
+
+.quiz-list-info {
   margin: 30px;
   color: darkcyan;
 }

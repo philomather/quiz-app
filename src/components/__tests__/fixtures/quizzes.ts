@@ -20,6 +20,7 @@ const testQuizAndQuestion = {
     quiz: {
         id: 'abcdef',
         name: 'Geography',
+        questions: []
     },
     question: {
         id: 'ghijkl',

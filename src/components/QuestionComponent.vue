@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import { useQuizzesStore } from '@/stores/quizzes';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router';
+import QuestionOptions from './QuestionOptions.vue';
 
 const quizzesStore = useQuizzesStore()
 const { quiz, question, adjacentQuestions } = storeToRefs(quizzesStore);
 
 const answer = ref('')
+const isLastQuestion = computed(() => adjacentQuestions.value[1].id == '')
+const nextLink = computed(
+    () => 
+        isLastQuestion.value ? '/dashboard' : `/quiz/${quiz.value.id}/question/${adjacentQuestions.value[1].id}`   
+);
+
+function enterAnswer() {
+    quizzesStore.answerQuestion(answer.value, isLastQuestion.value ? null : adjacentQuestions.value[1])
+    answer.value = ''
+}
 </script>
 
 <template>
@@ -17,44 +28,21 @@ const answer = ref('')
     <p class="question-component-text">
         {{ question.text }}
     </p>
-    <div class="question-component-options-container">
-        <div v-for="option in question.options">
-            <label
-                :for="option"
-                class="question-component-option-label"
-            >
-                <div class="question-component-option-card">
-                    <input
-                        type="radio"
-                        v-model="answer"
-                        :id="option"
-                        :value="option"
-                    >
-                    <p class="question-component-option-text">
-                        {{ option }}
-                    </p>
-                </div>
-            </label>
-        </div>
-    </div>
+    <QuestionOptions @update-answer="(chosenAnswer) => {answer = chosenAnswer}" />
     <div class="question-component-nav">
         <RouterLink
             v-if="adjacentQuestions[0].id != ''"
             :to="`/quiz/${quiz.id}/question/${adjacentQuestions[0].id}`"
             @click="quizzesStore.question = adjacentQuestions[0]"
+            class="question-component-back-button"
         >
             <button>Back</button>
         </RouterLink>
         <RouterLink
-            v-if="adjacentQuestions[1].id != ''"
-            :to="`/quiz/${quiz.id}/question/${adjacentQuestions[1].id}`"
-            @click="quizzesStore.question = adjacentQuestions[1]"
-        >
-            <button>Next</button>
-        </RouterLink>
-        <RouterLink
-            v-else
-            :to="`/quiz/${quiz.id}`"
+            v-if="answer != ''"
+            :to="nextLink"
+            @click="enterAnswer()"
+            class="question-component-next-button"
         >
             <button>Next</button>
         </RouterLink>
@@ -62,24 +50,4 @@ const answer = ref('')
 </template>
 
 <style scoped>
-.question-component-options-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.question-component-option-card {
-  display: flex;
-  align-items: center;
-  margin: 30px;
-  padding: 20px;
-  width: 60vw;
-  max-width: 600px;
-  outline: solid blueviolet;
-}
-
-.question-component-option-text {
-  margin-left: 10px;
-}
 </style>
