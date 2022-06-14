@@ -36,7 +36,7 @@ const emit = defineEmits<{
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .question-options-container{
   display: flex;
   flex-direction: column;
@@ -51,7 +51,7 @@ const emit = defineEmits<{
   padding: 20px;
   width: 60vw;
   max-width: 600px;
-  outline: solid blueviolet;
+  outline: solid map-get($colors, card-outline);
 }
 
 .question-options-option-text {

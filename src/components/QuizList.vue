@@ -52,7 +52,7 @@ onMounted(() => {
     </nav>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .quiz-list-heading {
   margin-bottom: 20px;
 }
@@ -67,7 +67,8 @@ onMounted(() => {
   margin: 30px;
   height: 100px;
   width: 300px;
-  outline: solid blueviolet;
+  max-width: 90vw;
+  outline: solid map-get($colors, card-outline);
 }
 
 .quiz-list-card-progress {
@@ -79,12 +80,12 @@ onMounted(() => {
 .quiz-list-card-link {
   height: 30px;
   width: 80px;
-  outline: solid rgb(38, 211, 130);
+  outline: solid map-get($colors, positive-outline);
 }
 
 .quiz-list-info {
   margin: 30px;
-  color: darkcyan;
+  color: map-get($colors, info);
 }
 
 @media (min-width: 1024px) {

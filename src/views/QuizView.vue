@@ -30,19 +30,19 @@ onMounted(() => {
     </div>
 </template>
 
-<style>
+<style lang="scss">
 .quiz-view-breadcrumb {
     position: absolute;
+    top: $view-container-top;
     left: 60px;
-    top: 20px;
-    width: 30px;
     height: 30px;
+    width: 30px;
     z-index: 1;
     font-size: large;
     font-weight: 700;
 }
 .quiz-view-question-container {
   text-align: center;
-  top: 50px;
+  top: $view-container-top;
 }
 </style>

@@ -8,9 +8,9 @@ import QuizList from "@/components/QuizList.vue";
     </div>
 </template>
 
-<style>
+<style lang="scss">
 .dashboard {
   text-align: center;
-  top: 50px;
+  top: $view-container-top;
 }
 </style>
