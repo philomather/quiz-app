@@ -11,7 +11,7 @@ const route = useRoute()
 
 onMounted(() => {
     if (!route.params.question_id) {
-        const question = quizzesStore.getFirstUnansweredQuestionIdByQuizId(route.params.quiz_id)
+        const question = quizzesStore.getFirstUnansweredQuestionIdByQuizId(route.params.quiz_id as string)
         quizzesStore.question = question
         router.push(`/quiz/${route.params.quiz_id}/question/${question.id}`)
     }
