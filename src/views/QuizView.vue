@@ -34,8 +34,8 @@ onMounted(() => {
 .quiz-view {
     .quiz-view__breadcrumb {
         position: absolute;
-        top: $view-container-top;
-        left: 60px;
+        top: $view-container-top-small;
+        left: 30px;
         height: 30px;
         width: 30px;
         z-index: 1;
@@ -45,7 +45,12 @@ onMounted(() => {
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;;
+        border-radius: 50%;
+
+        @media (min-width: 1024px) {
+            top: $view-container-top-large;
+            left: 60px;
+        }
 
         &:before {
             content: '';
@@ -60,11 +65,15 @@ onMounted(() => {
     }
     .quiz-view__question-container {
         text-align: center;
-        top: $view-container-top;
+        top: $view-container-top-small;
         width: 60vw;
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
+
+        @media (min-width: 1024px) {
+            top: $view-container-top-large;
+        }
     }
 }
 </style>

@@ -10,7 +10,12 @@ import QuizList from "@/components/QuizList.vue";
 
 <style lang="scss">
 .dashboard {
-  text-align: center;
-  top: $view-container-top;
+    text-align: center;
+    top: $view-container-top-small;
+
+    @media (min-width: 1024px) {
+        top: $view-container-top-large;
+        left: 60px;
+    }
 }
 </style>
