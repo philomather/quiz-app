@@ -22,32 +22,50 @@ function enterAnswer() {
 </script>
 
 <template>
-    <h1 class="question-component-heading">
-        {{ quiz.name }} 
-    </h1>
-    <p class="question-component-text">
-        {{ question.text }}
-    </p>
-    <QuestionOptions @update-answer="(chosenAnswer) => {answer = chosenAnswer}" />
-    <div class="question-component-nav">
-        <RouterLink
-            v-if="adjacentQuestions[0].id != ''"
-            :to="`/quiz/${quiz.id}/question/${adjacentQuestions[0].id}`"
-            @click="quizzesStore.question = adjacentQuestions[0]"
-            class="question-component-back-button"
-        >
-            <button>Back</button>
-        </RouterLink>
-        <RouterLink
-            v-if="answer != ''"
-            :to="nextLink"
-            @click="enterAnswer()"
-            class="question-component-next-button"
-        >
-            <button>Next</button>
-        </RouterLink>
+    <div class="question-component">
+        <h1 class="question-component__heading">
+            {{ quiz.name }} 
+        </h1>
+        <p class="question-component__text">
+            {{ question.text }}
+        </p>
+        <QuestionOptions @update-answer="(chosenAnswer) => {answer = chosenAnswer}" />
+        <div class="question-component__nav">
+            <RouterLink
+                v-if="adjacentQuestions[0].id != ''"
+                :to="`/quiz/${quiz.id}/question/${adjacentQuestions[0].id}`"
+                @click="quizzesStore.question = adjacentQuestions[0]"
+                class="question-component__button question-component__button--back"
+            >
+                Back
+            </RouterLink>
+            <RouterLink
+                v-if="answer != ''"
+                :to="nextLink"
+                @click="enterAnswer()"
+                class="question-component__button question-component__button--next"
+            >
+                Next
+            </RouterLink>
+        </div>
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+.question-component {
+    &__nav {
+        margin-top: 60px;
+        display: flex;
+    }
+
+    &__button {
+        @include button;
+        color: map-get($colors, positive-outline);
+
+        &--next {
+            margin-left: auto;
+        }
+    }
+
+}
 </style>

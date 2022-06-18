@@ -19,30 +19,52 @@ onMounted(() => {
 </script>
 
 <template>
-    <RouterLink
-        class="quiz-view-breadcrumb"
-        to="/dashboard"
-    >
-        {{ '<' }}
-    </RouterLink>
-    <div class="quiz-view-question-container">
-        <QuestionComponent />
+    <div class="quiz-view">
+        <RouterLink
+            class="quiz-view__breadcrumb"
+            to="/dashboard"
+        />
+        <div class="quiz-view__question-container">
+            <QuestionComponent />
+        </div>
     </div>
 </template>
 
 <style lang="scss">
-.quiz-view-breadcrumb {
-    position: absolute;
-    top: $view-container-top;
-    left: 60px;
-    height: 30px;
-    width: 30px;
-    z-index: 1;
-    font-size: large;
-    font-weight: 700;
-}
-.quiz-view-question-container {
-  text-align: center;
-  top: $view-container-top;
+.quiz-view {
+    .quiz-view__breadcrumb {
+        position: absolute;
+        top: $view-container-top;
+        left: 60px;
+        height: 30px;
+        width: 30px;
+        z-index: 1;
+        font-size: large;
+        font-weight: 700;
+        background-color: map-get($colors, card-outline);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;;
+
+        &:before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-left: 2px solid;
+            border-bottom: 2px solid;
+            transform: translateX(2px) rotate(45deg);
+            color: var(--vt-c-white);
+        }
+    }
+    .quiz-view__question-container {
+        text-align: center;
+        top: $view-container-top;
+        width: 60vw;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 </style>

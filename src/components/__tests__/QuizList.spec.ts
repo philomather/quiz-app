@@ -21,10 +21,10 @@ describe("QuizList", () => {
                     })],
             },
         })
-        const heading = wrapper.get('[class="quiz-list-heading"]')
+        const heading = wrapper.get('[class="quiz-list__heading"]')
         expect(heading.text()).toBe("Quizzes")
 
-        const quizCards = wrapper.findAll('[class="quiz-list-card"]')
+        const quizCards = wrapper.findAll('[class="quiz-list__card"]')
         expect(quizCards.length).toBe(3)
         expect(quizCards[0].get('h2').text()).toBe("Test Quiz")
         expect(quizCards[1].get('h2').text()).toBe("Example Subject")

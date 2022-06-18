@@ -1,0 +1,18 @@
+@mixin label-text {
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+@mixin button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 80px;
+    border: 2px solid;
+    border-radius: 4px;
+    @include label-text;
+}

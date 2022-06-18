@@ -21,10 +21,10 @@ describe("QuestionComponent", () => {
                     })],
             },
         })
-        const heading = wrapper.get('[class="question-component-heading"]')
+        const heading = wrapper.get('[class="question-component__heading"]')
         expect(heading.text()).toBe("Geography")
 
-        const quizOptionCards = wrapper.findAll('[class="question-options-option-card"]')
+        const quizOptionCards = wrapper.findAll('[class="question-options__option-card"]')
         expect(quizOptionCards.length).toBe(4)
         expect(quizOptionCards[0].text()).toBe("Istanbul")
         expect(quizOptionCards[1].text()).toBe("Athens")
@@ -46,13 +46,13 @@ describe("QuestionComponent", () => {
                     })],
             },
         })
-        let nextButton = wrapper.find('[class="question-component-next-button"]')
+        let nextButton = wrapper.find('[class="question-component__button question-component__button--next"]')
         expect(nextButton.exists()).toBe(false)
 
-        const quizOptionCards = wrapper.findAll('[class="question-options-option-card"]')
+        const quizOptionCards = wrapper.findAll('[class="question-options__option-card"]')
         await quizOptionCards[0].trigger('click')
 
-        nextButton = wrapper.find('[class="question-component-next-button"]')
+        nextButton = wrapper.find('[class="question-component__button question-component__button--next"]')
         expect(nextButton.exists()).toBe(true)
     });
 });

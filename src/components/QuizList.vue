@@ -15,82 +15,92 @@ onMounted(() => {
 </script>
 
 <template>
-    <h1 class="quiz-list-heading">
-        Quizzes
-    </h1>
-    <p
-        v-if="loading"
-        class="quiz-list-info"
-    >
-        Loading quizzes...
-    </p>
-    <p
-        v-else-if="error"
-        class="quiz-list-info"
-    >
-        Something went wrong loading the quizzes, please try again later.
-    </p>
-    <nav class="quiz-list-container">
-        <div
-            v-for="quiz in quizzes"
-            class="quiz-list-card"
+    <div class="quiz-list">
+        <h1 class="quiz-list__heading">
+            Quizzes
+        </h1>
+        <p
+            v-if="loading"
+            class="quiz-list__info"
         >
-            <h2>{{ quiz.name }}</h2>
-            <div class="quiz-list-card-progress">
-                <h3>
-                    {{ quiz.completed ? `Score: ${quiz.score}/${quiz.total}` : 'Not started' }}
-                </h3>
-                <RouterLink
-                    class="quiz-list-card-link"
-                    :to="`/quiz/${quiz.id}`"
-                    @click="quizzesStore.resetQuiz(quiz)"
-                >
-                    <h3>{{ quiz.completed ? 'Redo' : 'Start' }}</h3>
-                </RouterLink>
+            Loading quizzes...
+        </p>
+        <p
+            v-else-if="error"
+            class="quiz-list__info"
+        >
+            Something went wrong loading the quizzes, please try again later.
+        </p>
+        <nav class="quiz-list__container">
+            <div
+                v-for="quiz in quizzes"
+                class="quiz-list__card"
+            >
+                <h2 class="quiz-list__card-title">
+                    {{ quiz.name }}
+                </h2>
+                <div class="quiz-list__card-progress">
+                    <p class="quiz-list__card-status">
+                        {{ quiz.completed ? `Score: ${quiz.score}/${quiz.total}` : 'Not started' }}
+                    </p>
+                    <RouterLink
+                        class="quiz-list__card-link"
+                        :to="`/quiz/${quiz.id}`"
+                        @click="quizzesStore.resetQuiz(quiz)"
+                    >
+                        {{ quiz.completed ? 'Redo' : 'Start' }}
+                    </RouterLink>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 </template>
 
 <style scoped lang="scss">
-.quiz-list-heading {
-  margin-bottom: 20px;
-}
-.quiz-list-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+.quiz-list {
+  &__heading {
+    margin-bottom: 20px;
+  }
 
-.quiz-list-card {
-  margin: 30px;
-  height: 100px;
-  width: 300px;
-  max-width: 90vw;
-  outline: solid map-get($colors, card-outline);
-}
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-.quiz-list-card-progress {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px;
-}
+    @media (min-width: 1024px) {
+      flex-direction: row;
+    }
+  }
+  
+  &__card {
+    margin: 30px;
+    height: 100px;
+    width: 300px;
+    max-width: 90vw;
+    border: map-get($colors, card-outline) 2px solid;
+    border-radius: 8px;
+  }
+  
+  &__card-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+  }
 
-.quiz-list-card-link {
-  height: 30px;
-  width: 80px;
-  outline: solid map-get($colors, positive-outline);
-}
-
-.quiz-list-info {
-  margin: 30px;
-  color: map-get($colors, info);
-}
-
-@media (min-width: 1024px) {
-  .quiz-list-container{
-    flex-direction: row;
+  &__card-status {
+    font-size: 18px;
+  }
+  
+  &__card-link {
+    @include button;
+    color: map-get($colors, positive-outline);
+  }
+  
+  &__info {
+    margin: 30px;
+    color: map-get($colors, info);
   }
 }
 </style>
